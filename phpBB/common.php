@@ -36,8 +36,7 @@ if (!defined('PHPBB_INSTALLED'))
 
 	// We have to generate a full HTTP/1.1 header here since we can't guarantee to have any of the information
 	// available as used by the redirect function
-	$server_name = (!empty($_SERVER['HTTP_HOST'])) ? strtolower($_SERVER['HTTP_HOST']) : ((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : getenv('SERVER_NAME'));
-	$server_port = (!empty($_SERVER['SERVER_PORT'])) ? (int) $_SERVER['SERVER_PORT'] : (int) getenv('SERVER_PORT');
+	$server_name = $_SERVER["HTTP_HOST"];
 	$secure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 1 : 0;
 
 	$script_name = (!empty($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF');
@@ -57,16 +56,7 @@ if (!defined('PHPBB_INSTALLED'))
 	$phpbb_filesystem = new phpbb\filesystem();
 	$script_path = $phpbb_filesystem->clean_path($script_path);
 
-	$url = (($secure) ? 'https://' : 'http://') . $server_name;
-
-	if ($server_port && (($secure && $server_port <> 443) || (!$secure && $server_port <> 80)))
-	{
-		// HTTP HOST can carry a port number...
-		if (strpos($server_name, ':') === false)
-		{
-			$url .= ':' . $server_port;
-		}
-	}
+	$url = $_SERVER["HTTP_X_SANDSTORM_BASE_PATH"];
 
 	$url .= $script_path;
 	header('Location: ' . $url);
