@@ -39,6 +39,19 @@ services:
         tags:
             - { name: auth.provider }
 
+    auth.provider.sandstorm:
+        class: phpbb\auth\provider\sandstorm
+        arguments:
+            - @dbal.conn
+            - @config
+            - @passwords.manager
+            - @request
+            - @user
+            - %core.root_path%
+            - %core.php_ext%
+        tags:
+            - { name: auth.provider }
+
     auth.provider.ldap:
         class: phpbb\auth\provider\ldap
         arguments:

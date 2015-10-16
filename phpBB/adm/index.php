@@ -31,11 +31,11 @@ $auth->acl($user->data);
 $user->setup('acp/common');
 // End session management
 
-// Have they authenticated (again) as an admin for this session?
-if (!isset($user->data['session_admin']) || !$user->data['session_admin'])
-{
-	login_box('', $user->lang['LOGIN_ADMIN_CONFIRM'], $user->lang['LOGIN_ADMIN_SUCCESS'], true, false);
-}
+// // Have they authenticated (again) as an admin for this session?
+// if (!isset($user->data['session_admin']) || !$user->data['session_admin'])
+// {
+// 	login_box('', $user->lang['LOGIN_ADMIN_CONFIRM'], $user->lang['LOGIN_ADMIN_SUCCESS'], true, false);
+// }
 
 // Is user any type of admin? No, then stop here, each script needs to
 // check specific permissions but this is a catchall

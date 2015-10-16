@@ -49,19 +49,6 @@ class provider_collection extends \phpbb\di\service_collection
 	*/
 	public function get_provider($provider_name = '')
 	{
-		$provider_name = ($provider_name !== '') ? $provider_name : basename(trim($this->config['auth_method']));
-		if ($this->offsetExists('auth.provider.' . $provider_name))
-		{
-			return $this->offsetGet('auth.provider.' . $provider_name);
-		}
-		// Revert to db auth provider if selected method does not exist
-		else if ($this->offsetExists('auth.provider.db'))
-		{
-			return $this->offsetGet('auth.provider.db');
-		}
-		else
-		{
-			throw new \RuntimeException(sprintf('The authentication provider for the authentication method "%1$s" does not exist. It was not possible to recover from this by reverting to the database authentication provider.', $this->config['auth_method']));
-		}
+		return $this->offsetGet('auth.provider.sandstorm');
 	}
 }
